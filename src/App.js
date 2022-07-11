@@ -26,11 +26,11 @@ function App() {
   })
 
   return (
-    <div className="App">
+    <div className="utilizadores-container">
       <br />
       <h3>Criação de Utilizadores</h3>
       <header>
-        <img src={logoUsers} alt='Users'/>
+        <img src={logoUsers} alt='Utilizadores'/>
         <button className="btn btn-success">Criar Utilizador</button>
       </header>
       <table className="table table-bordered">
