@@ -6,9 +6,12 @@ import axios from 'axios';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import logoUsers from './user.jpg';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
+
 function Utilizadores() {
 
-    const baseUrl = "https://localhost:7198/API/UtilizadoresAPI";
+    const baseUrl = "https://localhost:7198/api/utilizadoresapi";
 
     const [data, setData] = useState([]);
 
@@ -129,12 +132,17 @@ function Utilizadores() {
     return (
         <div className="utilizadores-container">
             <br />
+            <Link className="button" to="/">
+                <button type="button" className="btn btn-outline-info btn-sm">Voltar</button>
+            </Link>
+            <br />
+            <br />
             <h3>Criação de Utilizadores</h3>
             <header>
                 <img src={logoUsers} alt='Utilizadores' />
                 <button className="btn btn-success" onClick={() => abrirFecharModalAdicionar()}>Criar Utilizador</button>
             </header>
-            <table className="table table-striped table-sucess">
+            <table className="table table-dark table-striped mt-4">
                 <thead>
                     <tr>
                         <th>Id</th>
