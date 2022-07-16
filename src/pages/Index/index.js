@@ -10,19 +10,21 @@ function Index() {
       <header className="App-header">
         <img src={logo1} className="App-logo" alt="logo" />
         <p>
-        <img src={logo2} className="App-logo2"/>
+          <img src={logo2} className="App-logo2" />
         </p>
-        <Link className="button" to="Filmes">
-        <button type="button" className="btn btn-outline-light btn-lg">Filmes</button>
+        <Link className="button" to="Utilizadores">
+          <button type="button" className="btn btn-outline-light btn-lg">Utilizadores</button>
         </Link>
         <p> </p>
-        <button type="button" className="btn btn-outline-light btn-lg">Séries</button>
-        <p> </p>
+        <Link className="button" to="Filmes">
+          <button type="button" className="btn btn-outline-light btn-lg">Filmes</button>
+        </Link>
+        <p></p>
         <Link className="button" to="Sobre">
-        <button type="button" className="btn btn-info">Sobre</button>
+          <button type="button" className="btn btn-info">Sobre</button>
         </Link>
       </header>
-      
+
     </div>
   );
 }

@@ -26,15 +26,13 @@ function Filmes() {
   const [filmeSelecionado, setFilmeSelecionado] = useState(
     {
       id: '',
-      nome: '',
-      email: '',
-      nif: '',
-      morada: '',
-      pais: '',
-      codPostal: '',
-      sexo: '',
-      dataNasc: '',
-      userF: '',
+      titulo: '',
+      imagem: null,
+      sinopse: '',
+      dataLancamento: '',
+      classificacao: '',
+      elenco: '',
+      genero: '',
     }
   )
 
@@ -63,6 +61,11 @@ function Filmes() {
     });
     console.log(filmeSelecionado);
   }
+  const handleImagemChange = (e) => {
+    setFilmeSelecionado({ ...filmeSelecionado, imagem: e.target.files[0]
+    });
+    console.log(filmeSelecionado);
+  }
 
   const pedidoGet = async () => {
     await axios.get(baseUrl)
@@ -75,32 +78,53 @@ function Filmes() {
 
   const pedidoPost = async () => {
     delete filmeSelecionado.id;
-    await axios.post(baseUrl, filmeSelecionado)
-      .then(response => {
-        setData(data.concat(response.data));
-        setUpdateData(true);
-        abrirFecharModalAdicionar();
-      }).catch(error => {
-        console.log(error);
-      })
+    const formData = new FormData();
+    formData.append("titulo", filmeSelecionado.titulo)
+    formData.append("imagem", filmeSelecionado.imagem)
+    formData.append("sinopse", filmeSelecionado.sinopse)
+    formData.append("dataLancamento", filmeSelecionado.dataLancamento)
+    formData.append("classificacao", filmeSelecionado.classificacao)
+    formData.append("elenco", filmeSelecionado.elenco)
+    formData.append("genero", filmeSelecionado.genero)
+    axios.post(baseUrl, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(response => {
+      alert('Filme adicionado com sucesso!');
+      setData(data.concat(response.data));
+      setUpdateData(true);
+      abrirFecharModalAdicionar();
+    }).catch(error => {
+      console.log(error);
+    })
   }
 
   const pedidoPut = async () => {
-    await axios.put(baseUrl + "/" + filmeSelecionado.id, filmeSelecionado)
-      .then(response => {
+    const formData = new FormData();
+    formData.get("titulo", filmeSelecionado.titulo)
+    formData.get("imagem", filmeSelecionado.imagem)
+    formData.get("sinopse", filmeSelecionado.sinopse)
+    formData.get("dataLancamento", filmeSelecionado.dataLancamento)
+    formData.get("classificacao", filmeSelecionado.classificacao)
+    formData.get("elenco", filmeSelecionado.elenco)
+    formData.get("genero", filmeSelecionado.genero)
+    axios.put(baseUrl + "/" + filmeSelecionado.id, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(response => {
         var dados = response.data;
         var dadosAux = data;
         dadosAux.map(filme => {
           if (filme.id === filmeSelecionado.id) {
-            filme.nome = dados.nome;
-            filme.email = dados.email;
-            filme.nif = dados.nif;
-            filme.morada = dados.morada;
-            filme.pais = dados.pais;
-            filme.codPostal = dados.codPostal;
-            filme.sexo = dados.sexo;
-            filme.dataNasc = dados.dataNasc;
-            filme.userF = dados.userF;
+            filme.titulo = dados.titulo;
+            filme.imagem = dados.imagem;
+            filme.sinopse = dados.sinopse;
+            filme.dataLancamento = dados.dataLancamento;
+            filme.classificacao = dados.classificacao;
+            filme.elenco = dados.elenco;
+            filme.genero = dados.genero;
           }
         });
         setUpdateData(true);
@@ -162,9 +186,9 @@ function Filmes() {
               <td>{filme.id}</td>
               <td>{filme.titulo}</td>
               <td><img src={'https://localhost:7198/Fotos/Filmes/' + filme.imagem}
-                alt={'imagem de ' + filme.imagem}
-                title={filme.imagem}
-                    height="100" />
+                alt={'imagem de ' + filme.titulo}
+                title={filme.titulo}
+                height="100" />
               </td>
               <td className="sinopse">{filme.sinopse}</td>
               <td>{filme.dataLancamento}</td>
@@ -190,7 +214,7 @@ function Filmes() {
             <br />
             <label>Imagem:</label>
             <br />
-            <input type="file" className="form-control" name="imagem" accept=".jpg,.png,.jpeg" onChange={handleChange} />
+            <input type="file" className="form-control" name="imagem" accept=".jpg,.png,.jpeg" onChange={handleImagemChange} />
             <br />
             <label>Sinopse:</label>
             <br />
@@ -230,37 +254,37 @@ function Filmes() {
             <label>Título:</label>
             <br />
             <input type="text" className="form-control" name="titulo" onChange={handleChange}
-              value={filmeSelecionado && filmeSelecionado.nome} />
+              value={filmeSelecionado && filmeSelecionado.titulo} />
             <br />
             <label>Imagem:</label>
             <br />
-            <input type="file" className="form-control" name="imagem" accept=".jpg,.png,.jpeg" onChange={handleChange}
-              value={filmeSelecionado && filmeSelecionado.nome} />
+            <input type="file" className="form-control" name="imagem" accept=".jpg,.png,.jpeg" onChange={handleImagemChange} 
+            />
             <br />
             <label>Sinopse:</label>
             <br />
             <input type="text" className="form-control" name="sinopse" onChange={handleChange}
-              value={filmeSelecionado && filmeSelecionado.email} />
+              value={filmeSelecionado && filmeSelecionado.sinopse} />
             <br />
             <label>Data de Lançamento:</label>
             <br />
             <input type="date" className="form-control" name="dataLancamento" onChange={handleChange}
-              value={filmeSelecionado && filmeSelecionado.nif} />
+            />
             <br />
             <label>Classificação:</label>
             <br />
             <input type="number" className="form-control" name="classificacao" onChange={handleChange}
-              value={filmeSelecionado && filmeSelecionado.morada} />
+              value={filmeSelecionado && filmeSelecionado.classificacao} />
             <br />
             <label>Elenco:</label>
             <br />
             <input type="text" className="form-control" name="elenco" onChange={handleChange}
-              value={filmeSelecionado && filmeSelecionado.pais} />
+              value={filmeSelecionado && filmeSelecionado.elenco} />
             <br />
             <label>Género:</label>
             <br />
             <input type="text" className="form-control" name="genero" onChange={handleChange}
-              value={filmeSelecionado && filmeSelecionado.codPostal} />
+              value={filmeSelecionado && filmeSelecionado.genero} />
             <br />
           </div>
         </ModalBody>
@@ -272,7 +296,7 @@ function Filmes() {
 
       <Modal isOpen={modalApagar}>
         <ModalBody>
-          Confirma a eliminação deste filme: {filmeSelecionado && filmeSelecionado.nome} ?
+          Confirma a eliminação deste filme: {filmeSelecionado && filmeSelecionado.titulo} ?
         </ModalBody>
         <ModalFooter>
           <button className="btn btn-danger" onClick={() => pedidoDelete()}>Sim</button>
