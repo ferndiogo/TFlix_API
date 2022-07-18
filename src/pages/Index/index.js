@@ -24,6 +24,14 @@ function Index() {
           <button type="button" className="btn btn-outline-light btn-lg">Séries</button>
         </Link>
         <p></p>
+        <Link className="button" to="Alugueres">
+          <button type="button" className="btn btn-outline-light btn-lg">Aluguer</button>
+        </Link>
+        <p></p>
+        <Link className="button" to="Subscricao">
+          <button type="button" className="btn btn-outline-light btn-lg">Subscrição</button>
+        </Link>
+        <p></p>
         <Link className="button" to="Sobre">
           <button type="button" className="btn btn-info">Sobre</button>
         </Link>
