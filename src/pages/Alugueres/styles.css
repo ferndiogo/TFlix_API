@@ -1,20 +1,20 @@
-.filmes-container {
+.utilizadores-container {
   width: 100%;
   max-width: 1500px;
   padding: 5 10px;
   margin: 30px auto;
 }
 
-.filmes-container header {
+.utilizadores-container header {
   display: flex;
   align-items: center;
 }
 
-.filmes-container header img {
+.utilizadores-container header img {
   height: 50px;
 }
 
-.filmes-container header button {
+.utilizadores-container header button {
   height: 50px;
   width: 200px;
   border-radius: 5px;
@@ -24,11 +24,11 @@
   transition: border-color 0, 5s;
 }
 
-.filmes-container header button:hover {
+.utilizadores-container header button:hover {
   border-color: #510bac;
 }
 
-th, td {
+th, td{
   max-width: 300px;
   text-align: center;
 }

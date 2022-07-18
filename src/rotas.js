@@ -4,6 +4,9 @@ import Index from "./pages/Index";
 import Utilizadores from "./pages/Utilizadores";
 import Sobre from "./pages/Sobre";
 import Filmes from "./pages/Filmes";
+import Series from "./pages/Series";
+import Alugueres from "./pages/Alugueres";
+import Exemplos from "./pages/Exemplos/App";
 
 function Rotas() {
     return (
@@ -13,6 +16,9 @@ function Rotas() {
                 <Route path="/Utilizadores" element={<Utilizadores/>} />
                 <Route path="/Sobre" element={<Sobre/>} />
                 <Route path="/Filmes" element={<Filmes/>} />
+                <Route path="/Series" element={<Series/>} />
+                <Route path="/Alugueres" element={<Alugueres/>} />
+                <Route path="/Exemplos" element={<Exemplos/>} />
             </Routes>
         </BrowserRouter>
     );

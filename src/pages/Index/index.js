@@ -19,6 +19,10 @@ function Index() {
         <Link className="button" to="Filmes">
           <button type="button" className="btn btn-outline-light btn-lg">Filmes</button>
         </Link>
+        <p> </p>
+        <Link className="button" to="Series">
+          <button type="button" className="btn btn-outline-light btn-lg">Séries</button>
+        </Link>
         <p></p>
         <Link className="button" to="Sobre">
           <button type="button" className="btn btn-info">Sobre</button>
