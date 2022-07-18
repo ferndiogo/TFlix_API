@@ -47,48 +47,6 @@ function Series() {
     }
   )
 
-  //   const [dataUtlz, setDataUtlz] = useStateA([]);
-
-  //   const [updateDataUtlz, setUpdateDataUtlz] = useStateA(true);
-
-  //   const [utilizadorSelecionado, setUtilizadorSelecionado] = useStateA(
-  //     {
-  //         id: '',
-  //         nome: '',
-  //         email: '',
-  //         nif: '',
-  //         morada: '',
-  //         pais: '',
-  //         codPostal: '',
-  //         sexo: '',
-  //         dataNasc: '',
-  //         userF: '',
-  //     }
-  // )
-
-  // const pedidoGetUtlz = async () => {
-  //   await axios.get("https://localhost:7198/api/utilizadoresapi")
-  //     .then(response => {
-  //       setDataUtlz(response.dataUtlz);
-  //     }).catch(error => {
-  //       console.log(error);
-  //     })
-  // }
-
-  // //impedir loop pedidoGet
-  // useEffectA(() => {
-  //   if (updateDataUtlz) {
-  //     pedidoGetUtlz();
-  //     setUpdateDataUtlz(false);
-  //   }
-  // }, [updateDataUtlz])
-
-
-
-
-
-
-
   const selecionarSerie = (serie, opcao) => {
     setSerieSelecionada(serie);
     (opcao === "Editar") ?
