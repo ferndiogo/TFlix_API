@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 
 
 
-function Alugueres() {
+function Subscricao() {
 
     const [data1, setData1] = useState([]);
 
@@ -35,7 +35,7 @@ function Alugueres() {
 
     const [updateData3, setUpdateData3] = useState(true);
 
-    const baseUrl = "https://localhost:7198/api/subscricoesapi";
+    const baseUrl = "https://localhost:7198/api/subscricaoesapi";
 
     const [data, setData] = useState([]);
 
@@ -51,15 +51,17 @@ function Alugueres() {
 
     const [modalEditado, setModalEditado] = useState(false);
 
-    const [aluguerSelecionado, setAluguerSelecionado] = useState(
+    const [subscricaoelecionada, setSubscricaoelecionada] = useState(
         {
             id: '',
-            nomeUtilizador: '',
-            nomeFilme: '',
+            utilizador: '',
+            duracao: null,
             preco: null,
-            auxPreco: '',
+            auxPreco: null,
             dataInicio: null,
             dataFim: null,
+            filmes: '',
+            series: '',
         }
     )
 
@@ -97,7 +99,7 @@ function Alugueres() {
 
 
     const selecionarAluguer = (aluguer, opcao) => {
-        setAluguerSelecionado(aluguer);
+        setSubscricaoelecionada(aluguer);
         (opcao === "Editar") ?
             abrirFecharModalEditar() : abrirFecharModalApagar();
     }
@@ -124,30 +126,38 @@ function Alugueres() {
 
     const handleChange = e => {
         const { name, value } = e.target;
-        setAluguerSelecionado({
-            ...aluguerSelecionado, [name]: value
+        setSubscricaoelecionada({
+            ...subscricaoelecionada, [name]: value
         });
-        console.log(aluguerSelecionado);
+        console.log(subscricaoelecionada);
     }
 
     const handleUtilizadorChange = (e) => {
-        setAluguerSelecionado({
-            ...aluguerSelecionado, nomeUtilizador: e.target.value
+        setSubscricaoelecionada({
+            ...subscricaoelecionada, utilizador: e.target.value
         });
-        console.log(aluguerSelecionado);
+        console.log(subscricaoelecionada);
     }
 
     const handleFilmeChange = (e) => {
-        setAluguerSelecionado({
-            ...aluguerSelecionado, nomeFilme: e.target.value
+        setSubscricaoelecionada({
+            ...subscricaoelecionada, filmes: e.target.value
         });
-        console.log(aluguerSelecionado);
+        console.log(subscricaoelecionada);
+    }
+
+    const handleSerieChange = (e) => {
+        setSubscricaoelecionada({
+            ...subscricaoelecionada, series: e.target.value
+        });
+        console.log(subscricaoelecionada);
     }
 
     const pedidoGet = async () => {
         await axios.get(baseUrl)
             .then(response => {
                 setData(response.data);
+                console.log(response.data)
             }).catch(error => {
                 console.log(error);
             })
@@ -184,14 +194,14 @@ function Alugueres() {
 
 
     const pedidoPost = async () => {
-        delete aluguerSelecionado.id;
+        delete subscricaoelecionada.id;
         const formData = new FormData();
-        formData.append("nomeUtilizador", aluguerSelecionado.nomeUtilizador)
-        formData.append("nomeFilme", aluguerSelecionado.nomeFilme)
-        formData.append("preco", aluguerSelecionado.preco)
-        formData.append("auxPreco", aluguerSelecionado.auxPreco)
-        formData.append("dataInicio", aluguerSelecionado.dataInicio)
-        formData.append("dataFim", aluguerSelecionado.dataFim)
+        formData.append("nomeUtilizador", subscricaoelecionada.nomeUtilizador)
+        formData.append("nomeFilme", subscricaoelecionada.nomeFilme)
+        formData.append("preco", subscricaoelecionada.preco)
+        formData.append("auxPreco", subscricaoelecionada.auxPreco)
+        formData.append("dataInicio", subscricaoelecionada.dataInicio)
+        formData.append("dataFim", subscricaoelecionada.dataFim)
         axios.post(baseUrl, formData, {
             headers: {
                 'Content-Type': 'text/plain'
@@ -207,12 +217,12 @@ function Alugueres() {
     }
 
     const pedidoPut = async () => {
-        await axios.put(baseUrl + "/" + aluguerSelecionado.id, aluguerSelecionado)
+        await axios.put(baseUrl + "/" + subscricaoelecionada.id, subscricaoelecionada)
             .then(response => {
                 var dados = response.data;
                 var dadosAux = data;
                 dadosAux.map(aluguer => {
-                    if (aluguer.id === aluguerSelecionado.id) {
+                    if (aluguer.id === subscricaoelecionada.id) {
                         aluguer.nomeUtilizador = dados.nomeUtilizador;
                         aluguer.nomeFilme = dados.nomeFilme;
                         aluguer.preco = dados.preco;
@@ -229,7 +239,7 @@ function Alugueres() {
     }
 
     const pedidoDelete = async () => {
-        await axios.delete(baseUrl + "/" + aluguerSelecionado.id)
+        await axios.delete(baseUrl + "/" + subscricaoelecionada.id)
             .then(response => {
                 setData(data.filter(aluguer => aluguer.id !== response.data));
                 setUpdateData(true);
@@ -276,7 +286,7 @@ function Alugueres() {
 
 
     return (
-        <div className="utilizadores-container">
+        <div className="subscricoes-container">
             <br />
             <Link className="button" to="/">
                 <button type="button" className="btn btn-outline-info btn-sm">Voltar</button>
@@ -286,6 +296,9 @@ function Alugueres() {
             <h3>Criação de Aluguers</h3>
             <img src={iconSubs} alt='Alugueres' width="50px" />
             <button className="btn btn-success" onClick={() => abrirFecharModalAdicionar()}><FontAwesomeIcon icon={faPlus} /></button>
+
+            <div>{data.map((subs, i) => (<div>{subs.filmes[i].titulo}</div>
+            ))}</div>
 
             <table className="table table-dark table-striped mt-4">
                 <thead>
@@ -302,17 +315,19 @@ function Alugueres() {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map(aluguer => (
-                        <tr key={aluguer.id}>
-                            <td>{aluguer.id}</td>
-                            <td>{aluguer.nomeUtilizador}</td>
-                            <td>{aluguer.nomeFilme}</td>
-                            <td>{aluguer.preco}</td>
-                            <td>{aluguer.dataInicio}</td>
-                            <td>{aluguer.dataFim}</td>
+                    {data.map((subscricao, i) => (
+                        <tr key={subscricao}>
+                            <td>{subscricao.id}</td>
+                            <td>{subscricao.utilizador.nome}</td>
+                            <td>{subscricao.duracao}</td>
+                            <td>{subscricao.preco}</td>
+                            <td>{subscricao.dataInicio}</td>
+                            <td>{subscricao.dataFim}</td>
+                            <td>{subscricao.filmes[i].titulo}</td>
+                            <td>{subscricao.series[i].titulo}</td>
                             <td>
-                                <button className="btn btn-primary" onClick={() => selecionarAluguer(aluguer, "Editar")}><FontAwesomeIcon icon={faEdit} /></button> {"   "}
-                                <button className="btn btn-danger" onClick={() => selecionarAluguer(aluguer, "Apagar")}><FontAwesomeIcon icon={faTrash} /></button>
+                                <button className="btn btn-primary" onClick={() => selecionarAluguer(subscricao, "Editar")}><FontAwesomeIcon icon={faEdit} /></button> {"   "}
+                                <button className="btn btn-danger" onClick={() => selecionarAluguer(subscricao, "Apagar")}><FontAwesomeIcon icon={faTrash} /></button>
                             </td>
                         </tr>
                     ))}
@@ -327,8 +342,8 @@ function Alugueres() {
                         <br />
                         <select className="form-select" onChange={handleUtilizadorChange}>
                             <option value="">Escolha um utilizador</option>
-                            {data1.map(filme => (
-                                <option key={filme.id} value={filme.nome}>{filme.nome}</option>
+                            {data1.map(utilizador => (
+                                <option key={utilizador.id} value={utilizador.id}>{utilizador.nome}</option>
                             ))}
                         </select>
                         <br />
@@ -336,14 +351,25 @@ function Alugueres() {
                         <select className="form-select" onChange={handleFilmeChange}>
                             <option value="">Escolha um flme</option>
                             {data2.map(filme => (
-                                <option key={filme.id} value={filme.titulo} >{filme.titulo}</option>
+                                <option key={filme.id} value={filme.id} >{filme.titulo}</option>
+                            ))}
+                        </select>
+                        <br />
+                        <label>Série:</label>
+                        <select className="form-select" onChange={handleSerieChange}>
+                            <option value="">Escolha uma série</option>
+                            {data3.map(serie => (
+                                <option key={serie.id} value={serie.id} >{serie.titulo}</option>
                             ))}
                         </select>
                         <br />
                         <label>Preço:</label>
                         <br />
-                        <select class="form-control" onChange={handleChange}>
-                            <option value="5,99">5,99 por 1 filme (1 ano)</option>
+                        <select className="form-control" onChange={handleChange}>
+                            <option value="">Escolha uma opção</option>
+                            <option value="10,99">10,99 por 1 mês</option>
+                            <option value="39,99">39,99 por 6 meses</option>
+                            <option value="69,99">69,99 por 12 meses</option>
                         </select>
                     </div>
                 </ModalBody>
@@ -359,20 +385,20 @@ function Alugueres() {
                     <div className="form-group">
                         <label>Utilizador:</label>
                         <br />
-                        <select className="form-select" onChange={handleUtilizadorChange}>
-                            <option value="">{aluguerSelecionado && aluguerSelecionado.nomeUtilizador}</option>
+                        {/* <select className="form-select" onChange={handleUtilizadorChange}>
+                            <option value="">{subscricaoelecionada && subscricaoelecionada.nomeUtilizador}</option>
                             {data1.map(filme => (
                                 <option key={filme.id} value={filme.nome}>{filme.nome}</option>
                             ))}
-                        </select>
+                        </select> */}
                         <br />
                         <label>Filme:</label>
-                        <select className="form-select" onChange={handleFilmeChange}>
-                            <option value="">{aluguerSelecionado && aluguerSelecionado.nomeFilme}</option>
+                        {/* <select className="form-select" onChange={handleFilmeChange}>
+                            <option value="">{subscricaoelecionada && subscricaoelecionada.nomeFilme}</option>
                             {data2.map(filme => (
                                 <option key={filme.id} value={filme.titulo} >{filme.titulo}</option>
                             ))}
-                        </select>
+                        </select> */}
                         <br />
                         <label>Preço:</label>
                         <br />
@@ -392,7 +418,7 @@ function Alugueres() {
 
             <Modal isOpen={modalApagar}>
                 <ModalBody>
-                    Confirma a eliminação esta subscrição: {aluguerSelecionado && aluguerSelecionado.id} ?
+                    Confirma a eliminação esta subscrição: {subscricaoelecionada && subscricaoelecionada.id} ?
                 </ModalBody>
                 <ModalFooter>
                     <button className="btn btn-danger" onClick={() => pedidoDelete()}>Sim</button>
@@ -425,4 +451,4 @@ function Alugueres() {
 }
 
 
-export default Alugueres;
+export default Subscricao;

@@ -119,10 +119,10 @@ function Alugueres() {
     const handleChange = e => {
         const { name, value } = e.target;
         setAluguerSelecionado({
-          ...aluguerSelecionado, [name]: value
+            ...aluguerSelecionado, [name]: value
         });
         console.log(aluguerSelecionado);
-      }
+    }
 
     const handleUtilizadorChange = (e) => {
         setAluguerSelecionado({
@@ -175,14 +175,14 @@ function Alugueres() {
         formData.append("dataInicio", aluguerSelecionado.dataInicio)
         formData.append("dataFim", aluguerSelecionado.dataFim)
         axios.post(baseUrl, formData)
-        .then(response => {
-            setData(data.concat(response.data));
-            setUpdateData(true);
-            abrirFecharModalAdicionar();
-            abrirFecharModalCriado();
-        }).catch(error => {
-            console.log(error);
-        })
+            .then(response => {
+                setData(data.concat(response.data));
+                setUpdateData(true);
+                abrirFecharModalAdicionar();
+                abrirFecharModalCriado();
+            }).catch(error => {
+                console.log(error);
+            })
     }
 
     const pedidoPut = async () => {
@@ -294,13 +294,13 @@ function Alugueres() {
                     <div className="form-group">
                         <label>Utilizador:</label>
                         <br />
-                    
+
                         <select className="form-select" onChange={handleUtilizadorChange}>
                             <option value="">Escolha um utilizador</option>
                             {data1.map(filme => (
                                 <option key={filme.id} value={filme.id}>{filme.nome}</option>
                             ))}
-                        </select> 
+                        </select>
                         <br />
                         <label>Filme:</label>
 
@@ -309,23 +309,14 @@ function Alugueres() {
                             {data2.map(filme => (
                                 <option key={filme.id} value={filme.id} >{filme.titulo}</option>
                             ))}
-                        </select> 
+                        </select>
                         <br />
-                        <label>aux Preço:</label>
-                        <br />
-                        <input type="text" className="form-control" name="auxPreco" onChange={handleChange} />
-
                         <label>Preço:</label>
                         <br />
-                        <input type="text" className="form-control" name="preco" onChange={handleChange} />
-
-                        <label>data i:</label>
-                        <br />
-                        <input type="date" className="form-control" name="dataInicio" onChange={handleChange} />
-
-                        <label>data f:</label>
-                        <br />
-                        <input type="date" className="form-control" name="dataFim" onChange={handleChange} />
+                        <select className="form-control" onChange={handleChange}>
+                            <option value="">Escolha uma opção</option>
+                            <option value="5,99">5,99 por 1 filme (1 ano)</option>
+                        </select>
                     </div>
                 </ModalBody>
                 <ModalFooter>
@@ -342,8 +333,8 @@ function Alugueres() {
                         <br />
                         <select className="form-select" onChange={handleUtilizadorChange}>
                             <option value="">{aluguerSelecionado && aluguerSelecionado.nomeUtilizador}</option>
-                            {data1.map(filme => (
-                                <option key={filme.id} value={filme.nome}>{filme.nome}</option>
+                            {data1.map(utilizador => (
+                                <option key={utilizador.id} value={utilizador.id}>{utilizador.nome}</option>
                             ))}
                         </select>
                         <br />
@@ -351,18 +342,27 @@ function Alugueres() {
                         <select className="form-select" onChange={handleFilmeChange}>
                             <option value="">{aluguerSelecionado && aluguerSelecionado.nomeFilme}</option>
                             {data2.map(filme => (
-                                <option key={filme.id} value={filme.titulo} >{filme.titulo}</option>
+                                <option key={filme.id} value={filme.id} >{filme.titulo}</option>
                             ))}
                         </select>
                         <br />
                         <label>Preço:</label>
                         <br />
-                        <input type="text" className="form-control" name="auxPreco" onChange={handleChange} />
-                        {/* <select className="form-control" onChange={handlePrecoChange}>
+                        <select className="form-control" onChange={handleChange}>
+                            <option value="">Escolha uma opção</option>
                             <option value="5,99">5,99 por 1 filme (1 ano)</option>
-                        </select> */}
-
-
+                        </select>
+                        <br />
+                        <label>Data de Início:</label>
+                        <br />
+                        <input type="text" className="form-control" name="dataInicio" onChange={handleChange} 
+                        readOnly value={aluguerSelecionado && aluguerSelecionado.dataInicio} />
+                        <br />
+                        <label>Data de Fim:</label>
+                        <br />
+                        <input type="text" className="form-control" name="dataFim" onChange={handleChange} 
+                        readOnly value={aluguerSelecionado && aluguerSelecionado.dataFim}/>
+                        <br />
                     </div>
                 </ModalBody>
                 <ModalFooter>
