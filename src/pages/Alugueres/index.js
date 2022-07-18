@@ -57,39 +57,6 @@ function Alugueres() {
         }
     )
 
-    // const [dataUtlz, setDatatlz] = useState([]);
-
-    // const [updateDatatlz, setUpdateDatatlz] = useState(true);
-
-
-    // const [utilizadorSelecionado, setUtilizadorSelecionado] = useState(
-    //     {
-    //         id: '',
-    //         nome: '',
-    //         email: '',
-    //         nif: '',
-    //         morada: '',
-    //         pais: '',
-    //         codPostal: '',
-    //         sexo: '',
-    //         dataNasc: '',
-    //         userF: '',
-    //     }
-    // )
-
-    // //impedir loop pedidoGet
-    // useEffect(() => {
-    //     if (updateDatatlz) {
-    //         pedidoGetUtlz();
-    //         setUpdateDatatlz(false);
-    //     }
-    // }, [updateDatatlz])
-
-
-
-
-
-
     const selecionarAluguer = (aluguer, opcao) => {
         setAluguerSelecionado(aluguer);
         (opcao === "Editar") ?
@@ -142,6 +109,7 @@ function Alugueres() {
         await axios.get(baseUrl)
             .then(response => {
                 setData(response.data);
+                console.log(response.data)
             }).catch(error => {
                 console.log(error);
             })
@@ -289,7 +257,7 @@ function Alugueres() {
             </table>
 
             <Modal isOpen={modalAdicionar}>
-                <ModalHeader>Adicionar Utilizador</ModalHeader>
+                <ModalHeader>Adicionar Aluguer</ModalHeader>
                 <ModalBody>
                     <div className="form-group">
                         <label>Utilizador:</label>
@@ -326,7 +294,7 @@ function Alugueres() {
             </Modal>
 
             <Modal isOpen={modalEditar}>
-                <ModalHeader>Editar Utilizador</ModalHeader>
+                <ModalHeader>Editar Aluguer</ModalHeader>
                 <ModalBody>
                     <div className="form-group">
                         <label>Utilizador:</label>
@@ -382,9 +350,9 @@ function Alugueres() {
             </Modal>
 
             <Modal isOpen={modalCriado}>
-                <ModalHeader>Utilizador Adicionado</ModalHeader>
+                <ModalHeader>Aluguer Adicionado</ModalHeader>
                 <ModalBody>
-                    <div>O utilizador que introduziu foi adicionado com sucesso!</div>
+                    <div>O aluguer que introduziu foi adicionado com sucesso!</div>
                 </ModalBody>
                 <ModalFooter>
                     <button className="btn btn-primary" onClick={() => abrirFecharModalCriado()}><FontAwesomeIcon icon={faCheck} /></button>
@@ -394,7 +362,7 @@ function Alugueres() {
             <Modal isOpen={modalEditado}>
                 <ModalHeader>Utilizador Editado</ModalHeader>
                 <ModalBody>
-                    <div>O utilizador foi editado com sucesso!</div>
+                    <div>O aluguer foi editado com sucesso!</div>
                 </ModalBody>
                 <ModalFooter>
                     <button className="btn btn-primary" onClick={() => abrirFecharModalEditado()}><FontAwesomeIcon icon={faCheck} /></button>

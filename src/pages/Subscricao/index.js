@@ -65,39 +65,6 @@ function Subscricao() {
         }
     )
 
-    // const [dataUtlz, setDatatlz] = useState([]);
-
-    // const [updateDatatlz, setUpdateDatatlz] = useState(true);
-
-
-    // const [utilizadorSelecionado, setUtilizadorSelecionado] = useState(
-    //     {
-    //         id: '',
-    //         nome: '',
-    //         email: '',
-    //         nif: '',
-    //         morada: '',
-    //         pais: '',
-    //         codPostal: '',
-    //         sexo: '',
-    //         dataNasc: '',
-    //         userF: '',
-    //     }
-    // )
-
-    // //impedir loop pedidoGet
-    // useEffect(() => {
-    //     if (updateDatatlz) {
-    //         pedidoGetUtlz();
-    //         setUpdateDatatlz(false);
-    //     }
-    // }, [updateDatatlz])
-
-
-
-
-
-
     const selecionarAluguer = (aluguer, opcao) => {
         setSubscricaoelecionada(aluguer);
         (opcao === "Editar") ?
@@ -124,14 +91,6 @@ function Subscricao() {
         setModalEditado(!modalEditado);
     }
 
-    const handleChange = e => {
-        const { name, value } = e.target;
-        setSubscricaoelecionada({
-            ...subscricaoelecionada, [name]: value
-        });
-        console.log(subscricaoelecionada);
-    }
-
     const handleUtilizadorChange = (e) => {
         setSubscricaoelecionada({
             ...subscricaoelecionada, utilizador: e.target.value
@@ -149,6 +108,13 @@ function Subscricao() {
     const handleSerieChange = (e) => {
         setSubscricaoelecionada({
             ...subscricaoelecionada, series: e.target.value
+        });
+        console.log(subscricaoelecionada);
+    }
+
+    const handleAuxPrecoChange = (e) => {
+        setSubscricaoelecionada({
+            ...subscricaoelecionada, auxPreco: e.target.value
         });
         console.log(subscricaoelecionada);
     }
@@ -293,12 +259,9 @@ function Subscricao() {
             </Link>
             <br />
             <br />
-            <h3>Criação de Aluguers</h3>
+            <h3>Criação de Subscrição</h3>
             <img src={iconSubs} alt='Alugueres' width="50px" />
             <button className="btn btn-success" onClick={() => abrirFecharModalAdicionar()}><FontAwesomeIcon icon={faPlus} /></button>
-
-            <div>{data.map((subs, i) => (<div>{subs.filmes[i].titulo}</div>
-            ))}</div>
 
             <table className="table table-dark table-striped mt-4">
                 <thead>
@@ -335,7 +298,7 @@ function Subscricao() {
             </table>
 
             <Modal isOpen={modalAdicionar}>
-                <ModalHeader>Adicionar Utilizador</ModalHeader>
+                <ModalHeader>Adicionar Subscrição</ModalHeader>
                 <ModalBody>
                     <div className="form-group">
                         <label>Utilizador:</label>
@@ -365,7 +328,7 @@ function Subscricao() {
                         <br />
                         <label>Preço:</label>
                         <br />
-                        <select className="form-control" onChange={handleChange}>
+                        <select className="form-control" onChange={handleAuxPrecoChange}>
                             <option value="">Escolha uma opção</option>
                             <option value="10,99">10,99 por 1 mês</option>
                             <option value="39,99">39,99 por 6 meses</option>
@@ -380,34 +343,42 @@ function Subscricao() {
             </Modal>
 
             <Modal isOpen={modalEditar}>
-                <ModalHeader>Editar Utilizador</ModalHeader>
+                <ModalHeader>Editar Subscrição</ModalHeader>
                 <ModalBody>
                     <div className="form-group">
                         <label>Utilizador:</label>
                         <br />
-                        {/* <select className="form-select" onChange={handleUtilizadorChange}>
-                            <option value="">{subscricaoelecionada && subscricaoelecionada.nomeUtilizador}</option>
-                            {data1.map(filme => (
-                                <option key={filme.id} value={filme.nome}>{filme.nome}</option>
+                        <select className="form-select" onChange={handleUtilizadorChange}>
+                            <option value="">Escolha um utilizador</option>
+                            {data1.map(utilizador => (
+                                <option key={utilizador.id} value={utilizador.id}>{utilizador.nome}</option>
                             ))}
-                        </select> */}
+                        </select>
                         <br />
                         <label>Filme:</label>
-                        {/* <select className="form-select" onChange={handleFilmeChange}>
-                            <option value="">{subscricaoelecionada && subscricaoelecionada.nomeFilme}</option>
+                        <select className="form-select" onChange={handleFilmeChange}>
+                            <option value="">Escolha um flme</option>
                             {data2.map(filme => (
-                                <option key={filme.id} value={filme.titulo} >{filme.titulo}</option>
+                                <option key={filme.id} value={filme.id} >{filme.titulo}</option>
                             ))}
-                        </select> */}
+                        </select>
+                        <br />
+                        <label>Série:</label>
+                        <select className="form-select" onChange={handleSerieChange}>
+                            <option value="">Escolha uma série</option>
+                            {data3.map(serie => (
+                                <option key={serie.id} value={serie.id} >{serie.titulo}</option>
+                            ))}
+                        </select>
                         <br />
                         <label>Preço:</label>
                         <br />
-
-                        <select class="form-control" onChange={handleChange}>
-                            <option value="5,99">5,99 por 1 filme (1 ano)</option>
+                        <select className="form-control" onChange={handleAuxPrecoChange}>
+                            <option value="">Escolha uma opção</option>
+                            <option value="10,99">10,99 por 1 mês</option>
+                            <option value="39,99">39,99 por 6 meses</option>
+                            <option value="69,99">69,99 por 12 meses</option>
                         </select>
-
-
                     </div>
                 </ModalBody>
                 <ModalFooter>
@@ -427,9 +398,9 @@ function Subscricao() {
             </Modal>
 
             <Modal isOpen={modalCriado}>
-                <ModalHeader>Utilizador Adicionado</ModalHeader>
+                <ModalHeader>Subscrição Adicionada</ModalHeader>
                 <ModalBody>
-                    <div>O utilizador que introduziu foi adicionado com sucesso!</div>
+                    <div>A subscrição que introduziu foi adicionada com sucesso!</div>
                 </ModalBody>
                 <ModalFooter>
                     <button className="btn btn-primary" onClick={() => abrirFecharModalCriado()}><FontAwesomeIcon icon={faCheck} /></button>
@@ -437,9 +408,9 @@ function Subscricao() {
             </Modal>
 
             <Modal isOpen={modalEditado}>
-                <ModalHeader>Utilizador Editado</ModalHeader>
+                <ModalHeader>Subscrição Editado</ModalHeader>
                 <ModalBody>
-                    <div>O utilizador foi editado com sucesso!</div>
+                    <div>A subscrição foi editada com sucesso!</div>
                 </ModalBody>
                 <ModalFooter>
                     <button className="btn btn-primary" onClick={() => abrirFecharModalEditado()}><FontAwesomeIcon icon={faCheck} /></button>

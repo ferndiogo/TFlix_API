@@ -6,7 +6,6 @@ import Sobre from "./pages/Sobre";
 import Filmes from "./pages/Filmes";
 import Series from "./pages/Series";
 import Alugueres from "./pages/Alugueres";
-import Exemplos from "./pages/Exemplos/App";
 import Subscricao from "./pages/Subscricao";
 
 function Rotas() {
@@ -20,7 +19,6 @@ function Rotas() {
                 <Route path="/Series" element={<Series/>} />
                 <Route path="/Alugueres" element={<Alugueres/>} />
                 <Route path="/Subscricao" element={<Subscricao/>} />
-                <Route path="/Exemplos" element={<Exemplos/>} />
             </Routes>
         </BrowserRouter>
     );
