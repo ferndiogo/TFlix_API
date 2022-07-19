@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import Alert from 'react-bootstrap/Alert';
 
 import iconFilmes from './iconFilmes.png';
 
