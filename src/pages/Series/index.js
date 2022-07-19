@@ -14,7 +14,7 @@ import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 function Series() {
 
-  const baseUrl = "https://localhost:7198/api/seriesapi";
+  const baseUrl = "https://tflix.azurewebsites.net/api/seriesapi";
 
   const [data, setData] = useState([]);
 
@@ -198,7 +198,7 @@ function Series() {
             <tr key={serie.id}>
               <td>{serie.id}</td>
               <td>{serie.titulo}</td>
-              <td><img src={'https://localhost:7198/Fotos/series/' + serie.imagem}
+              <td><img src={'https://tflix.azurewebsites.net/Fotos/series/' + serie.imagem}
                 alt={'imagem de ' + serie.titulo}
                 title={serie.titulo}
                 height="100" />

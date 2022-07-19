@@ -16,7 +16,7 @@ import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
 function Filmes() {
 
-  const baseUrl = "https://localhost:7198/api/filmesapi";
+  const baseUrl = "https://tflix.azurewebsites.net/api/filmesapi";
 
   const [data, setData] = useState([]);
 
@@ -189,7 +189,7 @@ function Filmes() {
             <tr key={filme.id}>
               <td>{filme.id}</td>
               <td>{filme.titulo}</td>
-              <td><img src={'https://localhost:7198/Fotos/Filmes/' + filme.imagem}
+              <td><img src={'https://tflix.azurewebsites.net/Fotos/Filmes/' + filme.imagem}
                 alt={'imagem de ' + filme.titulo}
                 title={filme.titulo}
                 height="100" />

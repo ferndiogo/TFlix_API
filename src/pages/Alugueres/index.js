@@ -19,17 +19,17 @@ function Alugueres() {
 
     const [data1, setData1] = useState([]);
 
-    const baseUrl1 = "https://localhost:7198/api/utilizadoresapi";
+    const baseUrl1 = "https://tflix.azurewebsites.net/api/utilizadoresapi";
 
     const [updateData1, setUpdateData1] = useState(true);
 
     const [data2, setData2] = useState([]);
 
-    const baseUrl2 = "https://localhost:7198/api/filmesapi";
+    const baseUrl2 = "https://tflix.azurewebsites.net/api/filmesapi";
 
     const [updateData2, setUpdateData2] = useState(true);
 
-    const baseUrl = "https://localhost:7198/api/aluguersapi";
+    const baseUrl = "https://tflix.azurewebsites.net/api/aluguersapi";
 
     const [data, setData] = useState([]);
 
@@ -51,7 +51,6 @@ function Alugueres() {
             nomeUtilizador: '',
             nomeFilme: '',
             preco: null,
-            auxPreco: '',
             dataInicio: null,
             dataFim: null,
         }
@@ -61,6 +60,14 @@ function Alugueres() {
         setAluguerSelecionado(aluguer);
         (opcao === "Editar") ?
             abrirFecharModalEditar() : abrirFecharModalApagar();
+    }
+
+    const handleChange = e => {
+        const { name, value } = e.target;
+        setAluguerSelecionado({
+            ...aluguerSelecionado, [name]: value
+        });
+        console.log(aluguerSelecionado);
     }
 
     const abrirFecharModalAdicionar = () => {
@@ -83,10 +90,9 @@ function Alugueres() {
         setModalEditado(!modalEditado);
     }
 
-    const handleChange = e => {
-        const { name, value } = e.target;
+    const handlePrecoChange = (e) => {
         setAluguerSelecionado({
-            ...aluguerSelecionado, [name]: value
+            ...aluguerSelecionado, preco: e.target.value
         });
         console.log(aluguerSelecionado);
     }
@@ -139,7 +145,6 @@ function Alugueres() {
         formData.append("nomeUtilizador", aluguerSelecionado.nomeUtilizador)
         formData.append("nomeFilme", aluguerSelecionado.nomeFilme)
         formData.append("preco", aluguerSelecionado.preco)
-        formData.append("auxPreco", aluguerSelecionado.auxPreco)
         formData.append("dataInicio", aluguerSelecionado.dataInicio)
         formData.append("dataFim", aluguerSelecionado.dataFim)
         axios.post(baseUrl, formData)
@@ -163,7 +168,6 @@ function Alugueres() {
                         aluguer.nomeUtilizador = dados.nomeUtilizador;
                         aluguer.nomeFilme = dados.nomeFilme;
                         aluguer.preco = dados.preco;
-                        aluguer.auxPreco = dados.auxPreco;
                         aluguer.dataInicio = dados.dataInicio;
                         aluguer.dataFim = dados.dataFim;
                     }
@@ -222,7 +226,7 @@ function Alugueres() {
             </Link>
             <br />
             <br />
-            <h3>Criação de Aluguers</h3>
+            <h3>Criação de Alugueres</h3>
             <img src={iconAluga} alt='Alugueres' width="50px" />
             <button className="btn btn-success" onClick={() => abrirFecharModalAdicionar()}><FontAwesomeIcon icon={faPlus} /></button>
 
@@ -281,9 +285,9 @@ function Alugueres() {
                         <br />
                         <label>Preço:</label>
                         <br />
-                        <select className="form-control" onChange={handleChange}>
+                        <select className="form-control" onChange={handlePrecoChange}>
                             <option value="">Escolha uma opção</option>
-                            <option value="5,99">5,99 por 1 filme (1 ano)</option>
+                            <option value="5.99">5,99 por 1 filme (1 ano)</option>
                         </select>
                     </div>
                 </ModalBody>
@@ -316,9 +320,9 @@ function Alugueres() {
                         <br />
                         <label>Preço:</label>
                         <br />
-                        <select className="form-control" onChange={handleChange}>
+                        <select className="form-control" onChange={handlePrecoChange}>
                             <option value="">Escolha uma opção</option>
-                            <option value="5,99">5,99 por 1 filme (1 ano)</option>
+                            <option value="5.99">5,99 por 1 filme (1 ano)</option>
                         </select>
                         <br />
                         <label>Data de Início:</label>
@@ -360,7 +364,7 @@ function Alugueres() {
             </Modal>
 
             <Modal isOpen={modalEditado}>
-                <ModalHeader>Utilizador Editado</ModalHeader>
+                <ModalHeader>Aluguer Editado</ModalHeader>
                 <ModalBody>
                     <div>O aluguer foi editado com sucesso!</div>
                 </ModalBody>

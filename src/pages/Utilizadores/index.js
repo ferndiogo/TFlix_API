@@ -6,12 +6,15 @@ import axios from 'axios';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import logoUsers from './user.jpg';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 
 function Utilizadores() {
 
-    const baseUrl = "https://localhost:7198/api/utilizadoresapi";
+    const baseUrl = "https://tflix.azurewebsites.net/api/utilizadoresapi";
 
     const [data, setData] = useState([]);
 
@@ -22,6 +25,10 @@ function Utilizadores() {
     const [modalEditar, setModalEditar] = useState(false);
 
     const [modalApagar, setModalApagar] = useState(false);
+
+    const [modalCriado, setModalCriado] = useState(false);
+
+    const [modalEditado, setModalEditado] = useState(false);
 
     const [utilizadorSelecionado, setUtilizadorSelecionado] = useState(
         {
@@ -54,6 +61,14 @@ function Utilizadores() {
 
     const abrirFecharModalApagar = () => {
         setModalApagar(!modalApagar);
+    }
+
+    const abrirFecharModalCriado = () => {
+        setModalCriado(!modalCriado);
+    }
+
+    const abrirFecharModalEditado = () => {
+        setModalEditado(!modalEditado);
     }
 
     const handleChange = e => {
@@ -138,10 +153,9 @@ function Utilizadores() {
             <br />
             <br />
             <h3>Criação de Utilizadores</h3>
-            <header>
-                <img src={logoUsers} alt='Utilizadores' />
-                <button className="btn btn-success" onClick={() => abrirFecharModalAdicionar()}>Criar Utilizador</button>
-            </header>
+            <img src={logoUsers} alt='Utilizadores' width="50px" />
+            <button className="btn btn-success" onClick={() => abrirFecharModalAdicionar()}><FontAwesomeIcon icon={faPlus} /></button>
+
             <table className="table table-dark table-striped mt-4">
                 <thead>
                     <tr>
@@ -172,8 +186,8 @@ function Utilizadores() {
                             <td>{utilizador.dataNasc}</td>
                             <td>{utilizador.userF}</td>
                             <td>
-                                <button className="btn btn-primary" onClick={() => selecionarUtilizador(utilizador, "Editar")}>Editar</button> {"   "}
-                                <button className="btn btn-danger" onClick={() => selecionarUtilizador(utilizador, "Apagar")}>Apagar</button>
+                                <button className="btn btn-primary" onClick={() => selecionarUtilizador(utilizador, "Editar")}><FontAwesomeIcon icon={faEdit} /></button> {"   "}
+                                <button className="btn btn-danger" onClick={() => selecionarUtilizador(utilizador, "Apagar")}><FontAwesomeIcon icon={faTrash} /></button>
                             </td>
                         </tr>
                     ))}
@@ -295,6 +309,27 @@ function Utilizadores() {
                     <button className="btn btn-secondary" onClick={() => abrirFecharModalApagar()}>Não</button>
                 </ModalFooter>
             </Modal>
+
+            <Modal isOpen={modalCriado}>
+                <ModalHeader>Subscrição Adicionada</ModalHeader>
+                <ModalBody>
+                    <div>A subscrição que introduziu foi adicionada com sucesso!</div>
+                </ModalBody>
+                <ModalFooter>
+                    <button className="btn btn-primary" onClick={() => abrirFecharModalCriado()}><FontAwesomeIcon icon={faCheck} /></button>
+                </ModalFooter>
+            </Modal>
+
+            <Modal isOpen={modalEditado}>
+                <ModalHeader>Subscrição Editado</ModalHeader>
+                <ModalBody>
+                    <div>A subscrição foi editada com sucesso!</div>
+                </ModalBody>
+                <ModalFooter>
+                    <button className="btn btn-primary" onClick={() => abrirFecharModalEditado()}><FontAwesomeIcon icon={faCheck} /></button>
+                </ModalFooter>
+            </Modal>
+
 
 
         </div>

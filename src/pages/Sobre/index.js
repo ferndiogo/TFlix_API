@@ -14,6 +14,8 @@ function Sobre() {
                     <a href="https://github.com/ferndiogo/TFlix_DW">GitHub MCV</a>
                     <br />
                     <a href="https://github.com/ferndiogo/TFlix_API">GitHub API</a>
+                    <br />
+                    <a href="https://tflix.azurewebsites.net/">Link publicação Azure</a>
                 </div>
                 <p></p>
                 <Link className="button" to="/">

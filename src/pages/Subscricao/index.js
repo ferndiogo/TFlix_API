@@ -19,23 +19,23 @@ function Subscricao() {
 
     const [data1, setData1] = useState([]);
 
-    const baseUrl1 = "https://localhost:7198/api/utilizadoresapi";
+    const baseUrl1 = "https://tflix.azurewebsites.net/api/utilizadoresapi";
 
     const [updateData1, setUpdateData1] = useState(true);
 
     const [data2, setData2] = useState([]);
 
-    const baseUrl2 = "https://localhost:7198/api/filmesapi";
+    const baseUrl2 = "https://tflix.azurewebsites.net/api/filmesapi";
 
     const [updateData2, setUpdateData2] = useState(true);
 
     const [data3, setData3] = useState([]);
 
-    const baseUrl3 = "https://localhost:7198/api/seriesapi";
+    const baseUrl3 = "https://tflix.azurewebsites.net/api/seriesapi";
 
     const [updateData3, setUpdateData3] = useState(true);
 
-    const baseUrl = "https://localhost:7198/api/subscricaoesapi";
+    const baseUrl = "https://tflix.azurewebsites.net/api/subscricaoesapi";
 
     const [data, setData] = useState([]);
 
@@ -287,7 +287,9 @@ function Subscricao() {
                             <td>{subscricao.dataInicio}</td>
                             <td>{subscricao.dataFim}</td>
                             <td>{subscricao.filmes[i].titulo}</td>
-                            <td>{subscricao.series[i].titulo}</td>
+                            <td>{subscricao.series[i].titulo}<br />
+                                {subscricao.series[i + 1].titulo}
+                            </td>
                             <td>
                                 <button className="btn btn-primary" onClick={() => selecionarAluguer(subscricao, "Editar")}><FontAwesomeIcon icon={faEdit} /></button> {"   "}
                                 <button className="btn btn-danger" onClick={() => selecionarAluguer(subscricao, "Apagar")}><FontAwesomeIcon icon={faTrash} /></button>
@@ -330,9 +332,9 @@ function Subscricao() {
                         <br />
                         <select className="form-control" onChange={handleAuxPrecoChange}>
                             <option value="">Escolha uma opção</option>
-                            <option value="10,99">10,99 por 1 mês</option>
-                            <option value="39,99">39,99 por 6 meses</option>
-                            <option value="69,99">69,99 por 12 meses</option>
+                            <option value="10.99">10,99 por 1 mês</option>
+                            <option value="39.99">39,99 por 6 meses</option>
+                            <option value="69.99">69,99 por 12 meses</option>
                         </select>
                     </div>
                 </ModalBody>
@@ -375,9 +377,9 @@ function Subscricao() {
                         <br />
                         <select className="form-control" onChange={handleAuxPrecoChange}>
                             <option value="">Escolha uma opção</option>
-                            <option value="10,99">10,99 por 1 mês</option>
-                            <option value="39,99">39,99 por 6 meses</option>
-                            <option value="69,99">69,99 por 12 meses</option>
+                            <option value="10.99">10,99 por 1 mês</option>
+                            <option value="39.99">39,99 por 6 meses</option>
+                            <option value="69.99">69,99 por 12 meses</option>
                         </select>
                     </div>
                 </ModalBody>
